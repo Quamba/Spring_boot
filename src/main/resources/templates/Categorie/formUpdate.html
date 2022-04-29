@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/dashboard}" >
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+
+</head>
+<body>
+<section layout:fragment="custom-content">
+    <div class="d-flex justify-content-center mt-3">
+
+        <div class="col-9">
+            <div class="card card-danger">
+                <div class="card-header">
+                    <h3> FORMULAIRE CATEGORIE</h3>
+                </div>
+
+
+    <form th:action="@{/categorie/update}" th:object="${UneCategorie}" method="post">
+        <div class="mb-3">
+            <input type="hidden" th:field="*{id}" class="form-control" >
+        </div>
+        <div class="mb-3">
+            <label >DESIGNATION</label>
+            <input type="text" th:field="*{designation}" class="form-control" >
+        </div>
+        <button type="submit" class="btn btn-primary">ENREGISTRER</button>
+    </form>
+            </div></div>
+</div>
+</section>
+</body>
+</html>

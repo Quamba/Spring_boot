@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/dashboard}" >
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">-->
+    <link href="/css/bootstrap.min.css" rel="stylesheet"  >
+
+</head>
+<body>
+<section layout:fragment="custom-content">
+<div class="container">
+    <h2> LISTE DES ARTICLES</h2>
+    <table class="table table-stripped table-hover">
+        <thead>
+        <tr>
+            <th> ID</th>
+            <th> CATEGORIE</th>
+            <th> DATE DE CREATION</th>
+            <th> LIBELLE</th>
+            <th> PRIX</th>
+            <th> QUANTITE SEUILLE</th>
+            <th> QUANTITE EN STOCK</th>
+            <th> ACTION</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="article:${listArticle}">
+            <td th:text="${article.id}"></td>
+            <td th:text="${article.categorie.designation}"></td>
+            <td th:text="${article.dateCreation}"></td>
+            <td th:text="${article.libelle}"></td>
+            <td th:text="${article.prix}"></td>
+            <td th:text="${article.qteSeuil}"></td>
+            <td th:text="${article.qteStock}"></td>
+
+            <td>
+                <a th:href="@{/article/update/{id}(id=${article.id})}">Edit | </a>
+                <a th:href="@{/article/delete/{id}(id=${article.id})}">Delete |</a>
+                <a th:href="@{/approvisionnement/form/{id}(id=${article.id})}">Approvisionner </a>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+    <form th:action="@{/article/nouveau}" method="post">
+        <button  type="submit" class="btn btn-primary">AJOUTER NOUVEL ARTICLE</button>
+    </form>
+
+
+</div>
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>-->
+<script src="/js/bootstrap.bundle.min.js"/>
+</section>
+</body>
+</html>

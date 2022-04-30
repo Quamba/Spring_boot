@@ -1,5 +1,6 @@
 package com.example.tp2.controller;
 
+import com.example.tp2.modele.Article;
 import com.example.tp2.modele.Categorie;
 import com.example.tp2.service.CategorieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class CategorieController {
     @Autowired
     private CategorieService categorieService;
+
    @GetMapping("/afficher")
     public String ShowCategorie(Model model){
         model.addAttribute("listCategorie",categorieService.categorieList());
@@ -46,4 +48,9 @@ public class CategorieController {
        categorieService.deleteCategorie(id);
         return "redirect:/categorie/afficher";
     }
+    @PostMapping("/nouveau")
+    public String nouvelleCategorie(@ModelAttribute Categorie categorie){
+        return  "redirect:/categorie/form";
+    }
+
 }

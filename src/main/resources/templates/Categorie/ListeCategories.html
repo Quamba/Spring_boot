@@ -1,45 +1,151 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/dashboard}" >
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">-->
-    <link href="/css/bootstrap.min.css" rel="stylesheet"  >
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>Boutique</title>
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/img/favicon.png}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/plugins/fontawesome/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/plugins/fontawesome/css/fontawesome.min.css}">
+    <link rel="stylesheet" th:href="@{/plugins/datatables/datatables.min.css}">
+    <link rel="stylesheet" th:href="@{/css/feathericon.min.css}">
+    <link rel="stylesheet" th:href="@{/plugins/morris/morris.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
+
 <body>
-<section layout:fragment="custom-content">
-<div class="container">
-    <h2> LISTE DES CATEGORIES</h2>
-   <table class="table table-stripped table-hover">
-     <thead>
-          <tr>
-             <th> ID</th>
-             <th> Designation</th>
-             <th> ACTION</th>
-          </tr>
-     </thead>
+<div class="main-wrapper">
 
-     <tbody>
-          <tr th:each="categorie:${listCategorie}">
-              <td th:text="${categorie.id}"/>
-              <td th:text="${categorie.designation}"/>
-
-              <td>
-               <a th:href="@{/categorie/update/{id}(id=${categorie.id})}">Edit | </a>
-               <a th:href="@{/categorie/delete/{id}(id=${categorie.id})}">Delete </a>
-              </td>
-          </tr>
-
-     </tbody>
-   </table>
-
+    <!-- --><div class="header">
+    <div class="header-left">
+        <a href="/" class="logo"> <img th:src="@{/img/hotel_logo.png}" width="50" height="70"  alt="logo">
+            <span class="logoclass">MAIRIE</span> </a>
+        <a href="/" class="logo logo-small"> <img th:src="@{/img/hotel_logo.png}" alt="Logo" width="30"
+                                                  height="30"> </a>
+    </div>
+    <a href="javascript:void(0);" id="toggle_btn"> <i class="fe fe-text-align-left"></i> </a>
+    <a class="mobile_btn" id="mobile_btn"> <i class="fas fa-bars"></i> </a>
+    <ul class="nav user-menu">
+        <li class="nav-item dropdown has-arrow">
+            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"> <span
+                    class="user-img"><img class="rounded-circle" th:src="@{/img/profiles/avatar-01.jpg}"
+                                          width="31" alt="Soeng Souy" ></span> </a><!--th:text="${article.id}" -->
+            <div class="dropdown-menu">
+                <div class="user-header">
+                    <div class="avatar avatar-sm"> <img th:src="@{/img/profiles/avatar-01.jpg}" alt="User Image"
+                            class="avatar-img rounded-circle"> </div>
+                    <div class="user-text">
+                        <h6 >Soeng Souy</h6>
+                        <p class="text-muted mb-0">Administrator</p>
+                    </div>
+                </div> <a class="dropdown-item" href="/profile">Mon profile</a> <a class="dropdown-item"
+                         th:href =" @{/setting} ">Paramètres du compte</a> <a class="dropdown-item"
+                                                                                                                                        th:href =" @{/login} ">Déconnexion</a>
+            </div>
+        </li>
+    </ul>
+    <div class="top-nav-search">
+        <form>
+            <input type="text" class="form-control" placeholder="Cherche ici">
+            <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+        </form>
+    </div>
 </div>
-<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>-->
-<script src="/js/bootstrap.bundle.min.js"/>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-inner slimscroll">
+            <div id="sidebar-menu" class="sidebar-menu">
+                <ul>
+                    <li class="active"> <a href="/"><i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span></a> </li>
+                    <li class="list-divider"></li>
+                    <li > <a th:href =" @{/article/afficher} "> <span> Articles </span></a>
+                    </li>
+                    <li > <a th:href =" @{/categorie/afficher} "> <span> Catégorie</span></a></li>
+                    <li >
+                        <a th:href =" @{/approvisionnement/form} "> <span> Stock </span></a>
+                    </li>
+                    <li> <a th:href =" @{/approvisionnement/form} "> <span>Vente</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
-</section>
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <div class="page-header">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <div class="mt-5">
+                            <h4 class="card-title float-left mt-2">Toutes les Catégories</h4>
+                            <form th:action="@{/categorie/nouveau}" method="post">
+                                <button  type="submit" class="btn btn-primary float-right veiwbutton">Ajouter une categorie </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card card-table">
+                        <div class="card-body booking_card">
+                            <div class="table-responsive">
+                                <table class="datatable table table-stripped table table-hover table-center mb-0">
+                                    <thead>
+                                    <tr>
+                                        <th> ID</th>
+                                        <th> Designation</th>
+                                        <th> ACTION</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr th:each="categorie:${listCategorie}">
+                                        <td th:text="${categorie.id}"/>
+                                        <td th:text="${categorie.designation}"/>
+
+                                        <td>
+                                            <a th:href="@{/categorie/update/{id}(id=${categorie.id})}">Edit | </a>
+                                            <a th:href="@{/categorie/delete/{id}(id=${categorie.id})}">Delete </a>
+                                        </td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="delete_asset" class="modal fade delete-modal" role="dialog">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body text-center"> <img src="assets/img/sent.png" alt="" width="50"
+                                                              height="46">
+                        <h3 class="delete_class">Are you sure want to delete this Asset?</h3>
+                        <div class="m-t-20"> <a href="#" class="btn btn-white"
+                                                data-dismiss="modal">Close</a>
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script data-cfasync="false" src="../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script src="assets/js/jquery-3.5.1.min.js"></script>
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="assets/plugins/raphael/raphael.min.js"></script>
+<script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="assets/plugins/datatables/datatables.min.js"></script>
+<script src="assets/js/script.js"></script>
 </body>
+
 </html>

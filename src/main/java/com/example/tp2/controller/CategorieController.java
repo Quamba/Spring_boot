@@ -53,4 +53,9 @@ public class CategorieController {
         return  "redirect:/categorie/form";
     }
 
+    @PostMapping("/return")
+    public String retourCategorie(@ModelAttribute  Categorie categorie){
+        return  "redirect:/categorie//afficher";
+    }
+
 }

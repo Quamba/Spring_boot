@@ -32,4 +32,11 @@ public class ArticleService {
         articleRepository.updateStockProduit(id,qte);
     }
 
+    public void venteProduit(int id,int qte){
+        articleRepository.venteProduit(id,qte);
+    }
+
+    public void prixTotal(int id,int qte){
+        articleRepository.prixTotal(id,qte);
+    }
 }

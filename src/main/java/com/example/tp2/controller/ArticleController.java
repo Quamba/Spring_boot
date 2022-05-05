@@ -70,6 +70,11 @@ public class ArticleController {
         return "/article/ListeArticle";
     }
 
+    @GetMapping("/")
+    public String dash() {
+        return "dashboard";
+    }
+
     @GetMapping("article/form")
     public String articleForm(Model model){
         model.addAttribute("listCategorie",categorieService.categorieList());
@@ -107,5 +112,18 @@ public class ArticleController {
     public String nouvelArticle(@ModelAttribute  Article article){
         return  "redirect:/article/form";
     }
+
+    @PostMapping("/article/return")
+    public String retourArticle(@ModelAttribute  Article article){
+        return  "redirect:/article/afficher";
+    }
+
+
+    @GetMapping("/article/Affichervente")
+    public String Affichervente(){
+        return "redirect:/vente/afficher";
+    }
+
+
 
 }

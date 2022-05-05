@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <title>Mairie Dashboard </title>
+    <title>Boutique </title>
     <link rel="shortcut icon" type="image/x-icon" th:href="@{/img/favicon.png}">
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/plugins/fontawesome/css/fontawesome.min.css}">
@@ -20,7 +20,7 @@
     <!-- --><div class="header">
     <div class="header-left">
         <a href="/" class="logo"> <img th:src="@{/img/hotel_logo.png}" width="50" height="70"  alt="logo">
-            <span class="logoclass">MAIRIE</span> </a>
+            <span class="logoclass">Boutique</span> </a>
         <a href="/" class="logo logo-small"> <img th:src="@{/img/hotel_logo.png}" alt="Logo" width="30"
                                                   height="30"> </a>
     </div>
@@ -36,12 +36,12 @@
                     <div class="avatar avatar-sm"> <img th:src="@{/img/profiles/avatar-01.jpg}" alt="User Image"
                                                         class="avatar-img rounded-circle"> </div>
                     <div class="user-text">
-                        <h6>Soeng Souy</h6>
+                        <h6>TEAM DAVLOLO</h6>
                         <p class="text-muted mb-0">Administrator</p>
                     </div>
-                </div> <a class="dropdown-item" href="/profile">Mon profile</a> <a class="dropdown-item"
-                                                                                   th:href =" @{/setting} ">Paramètres du compte</a> <a class="dropdown-item"
-                                                                                                                                        th:href =" @{/login} ">Déconnexion</a>
+                </div>
+                <a class="dropdown-item"
+                   th:href =" @{login} ">Déconnexion</a>
             </div>
         </li>
     </ul>
@@ -62,10 +62,9 @@
                     <li > <a th:href =" @{/article/afficher} "><span> Articles </span></a>
                     </li>
                     <li > <a th:href =" @{/categorie/afficher} "> <span> Catégorie</span></a></li>
+
                     <li >
-                        <a th:href =" @{/approvisionnement/form} "> <span> Stock </span></a>
-                    </li>
-                    <li> <a th:href =" @{/approvisionnement/form} "><span>Vente</span></a>
+                        <a th:href =" @{/article/Affichervente} "> <span> vente </span></a>
                     </li>
                 </ul>
             </div>

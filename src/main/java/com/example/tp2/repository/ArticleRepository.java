@@ -16,4 +16,13 @@ public interface ArticleRepository extends JpaRepository<Article,Integer> {
     @Query("update Article a set a.qteStock=a.qteStock + :qte where a.id= :idd") //requete personnaliser
     void updateStockProduit(@Param("idd") int idd,@Param("qte") int qte);
 
+    @Modifying//precise que c'est une requete de modification
+    @Transactional//obliger
+    @Query("update Article a set a.qteStock=a.qteStock - :qte where a.id= :idd") //requete personnaliser
+    void venteProduit(@Param("idd") int idd,@Param("qte") int qte);
+
+    @Modifying//precise que c'est une requete de modification
+    @Transactional//obliger
+    @Query("update Article a set a.prix=a.prix * :qte where a.id= :idd") //requete personnaliser
+    void prixTotal(@Param("idd") int idd,@Param("qte") int qte);
 }
